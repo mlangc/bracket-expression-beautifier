@@ -73,21 +73,63 @@ class TestBeautifier extends UnitTest {
     }
 
     "Test an elaborate beautifier with" - {
-      "An almost trivial example" in {
+      "an almost trivial example" in {
         testWithElaborateBeauty(
           "()",
        """|(
           |)""".stripMargin)
       }
 
-    "With a very easy example" in {
-       testWithElaborateBeauty(
-          "(a, b)",
-        """|(
-           |    a, b
-           |)""".stripMargin)
+      "a very easy example" in {
+         testWithElaborateBeauty(
+            "(a, b)",
+          """|(
+             |    a, b
+             |)""".stripMargin)
+        }
       }
-    }
+
+      "a single open bracket" in {
+         testWithElaborateBeauty("(", "(")
+      }
+
+      "a single closed bracket" in {
+         testWithElaborateBeauty(")", ")")
+      }
+
+      "an epxression missing a closed bracket" in {
+         testWithElaborateBeauty(
+            "(a * (b + c",
+          """|(
+             |    a * (
+             |        b + c""".stripMargin)
+      }
+
+      "an epxression that starts with a stray closed bracket" in {
+         testWithElaborateBeauty(
+            ")(a * (b + c))",
+          """|)(
+             |    a * (
+             |        b + c
+             |    )
+             |)""".stripMargin)
+      }
+
+      "a very simple expression that starts with a closing bracket" in {
+         testWithElaborateBeauty(
+            ")()",
+          """|)(
+             |)""".stripMargin)
+      }
+
+      "a completely b0rked expression" in {
+         testWithElaborateBeauty(
+            ")())))f(a, b))(",
+          """|)(
+             |))))f(
+             |    a, b
+             |))(""".stripMargin)
+      }
   }
 
   private def testWithElaborateBeauty(input: String, expected: String) {

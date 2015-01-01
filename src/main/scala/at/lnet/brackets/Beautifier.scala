@@ -3,7 +3,9 @@ package at.lnet.brackets
 import scala.util.matching.Regex
 import scala.IndexedSeq
 
-case class Brackets(open: String, close: String)
+case class Brackets(open: String, close: String) {
+  require(open != close, "Opening and closing brackets must differ")
+}
 
 object Brackets {
   def apply(str: String): Brackets = str.toCharArray() match {
@@ -73,22 +75,21 @@ class Beautifier(brackets: Brackets = Brackets("()"), indent: Int = 2, maxNestin
   }
 
   private def format(trees: IndexedSeq[StrTree]): String = {
-    def go(trees: IndexedSeq[StrTree], clevel: Int = 0, cindent: Int = 0): String = {
+    def go(trees: IndexedSeq[StrTree], cindent: Int = 0): String = {
       trees.foldLeft("") { (acc, tree) =>
         val breakLine = tree.height > maxNestingBeforeLineBreak
         val nindent = if (breakLine) cindent + indent else cindent
-        val nlevel = clevel + 1
-        val (subtreesWoClosingBrace, closingBrace) = {
-          val subs = tree.subtrees
-          if (subs.isEmpty) {
+        val (beforeCloseingBrace, closingBrace) = {
+          val subtrees = tree.subtrees
+          if (subtrees.isEmpty) {
             (IndexedSeq(), None)
-          } else if (subs.size == 1) {
-            if (!isClosingBrace(subs(0))) (IndexedSeq(subs(0)), None)
-            else (IndexedSeq(), Some(subs(0)))
-          } else if (isClosingBrace(subs.last)) {
-            (subs.init, Some(subs.last))
+          } else if (subtrees.size == 1) {
+            if (!isClosingBrace(subtrees(0))) (IndexedSeq(subtrees(0)), None)
+            else (IndexedSeq(), Some(subtrees(0)))
+          } else if (isClosingBrace(subtrees.last)) {
+            (subtrees.init, Some(subtrees.last))
           } else {
-            (subs, None)
+            (subtrees, None)
           }
         }
 
@@ -97,8 +98,8 @@ class Beautifier(brackets: Brackets = Brackets("()"), indent: Int = 2, maxNestin
         }.getOrElse("")
 
         val subtreeStr = {
-          if (subtreesWoClosingBrace.isEmpty) None
-          else Some(go(subtreesWoClosingBrace, nlevel, nindent))
+          if (beforeCloseingBrace.isEmpty) None
+          else Some(go(beforeCloseingBrace, nindent))
         }.map { str =>
           (if (breakLine) "\n" + (" " * nindent) else "") + str
         }.getOrElse("")
@@ -124,10 +125,10 @@ class Beautifier(brackets: Brackets = Brackets("()"), indent: Int = 2, maxNestin
     } else if (parts.size == 1) {
       IndexedSeq(StrTree(parts.head))
     } else {
-      val partitions = parts.foldLeft(IndexedSeq[(String, IndexedSeq[String], Option[Int])]()) { (acc, str) =>
+      val partitions = parts.foldLeft(IndexedSeq[(String, IndexedSeq[String], Int)]()) { (acc, str) =>
         val ((cstr, cseq, clevel), replace) = {
-          if (acc.isEmpty || acc.last._3 == Some(0)) {
-            ((str, IndexedSeq(), None), false)
+          if (acc.isEmpty || acc.last._3 == 0) {
+            ((str, IndexedSeq(), 0), false)
           } else {
             (acc.last, true)
           }
@@ -140,8 +141,8 @@ class Beautifier(brackets: Brackets = Brackets("()"), indent: Int = 2, maxNestin
         }
 
         val strHandled = !replace
-        val nlevel = clevel.orElse(Some(0)).map(_ + levelDelta)
-        val firstOpeningBracket = levelDelta == 1 && clevel == None
+        val nlevel = math.max(clevel + levelDelta, 0)
+        val firstOpeningBracket = levelDelta == 1 && clevel == 0
         val nseq = if (!strHandled) cseq :+ str else cseq
         val nstr = if (firstOpeningBracket && !strHandled) cstr + str else cstr
         val nacc = (nstr, nseq, nlevel)
