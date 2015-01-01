@@ -47,4 +47,6 @@ Now you can use the beautifier like this:
       )
     )
 	
+## Caveats
 
+If your input string already contains newlines, you should strip them away before calling the beautifier.
