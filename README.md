@@ -9,7 +9,7 @@ Clone the repository, cd into it and run
 
 Now you can use the beautifier like this:
 
-    scala> val beauty = at.lnet.brackets.DefaultBeautifier
+    scala> val beauty = com.github.mlangc.brackets.DefaultBeautifier
     beauty: at.lnet.brackets.DefaultBeautifier.type = Beautifier(Brackets((,)), 2, 3)
     scala> beauty.format("(2 * (3 + f(a, g(h(k(l(x) + 1) + 1) + 1) + 1)*5))")
     res0: String =
@@ -46,6 +46,11 @@ Now you can use the beautifier like this:
         )
       )
     )
+
+Alternatively you can add the beautifier as a dependency to your project. If you are using sbt, just add the following line to your build.sbt:
+
+	libraryDependencies += "com.github.mlangc" %% "bracket-expression-beautifier" % "1.0"
+
 	
 ## Caveats
 

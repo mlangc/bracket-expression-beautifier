@@ -1,7 +1,7 @@
-package at.lnet.brackets
+package com.github.mlangc.brackets
 
-import scala.util.matching.Regex
 import scala.IndexedSeq
+import scala.util.matching.Regex
 
 case class Brackets(open: String, close: String) {
   require(open != close, "Opening and closing brackets must differ")
@@ -55,7 +55,7 @@ object Beautifier {
  * @param maxHeightBeforeLineBreak defines how many nested "()" expressions are allowed, before a line break is inserted.
  */
 class Beautifier(brackets: Brackets = Brackets("()"), indent: Int = 2, maxNestingBeforeLineBreak: Int = 3) {
-  import Beautifier._
+import Beautifier._
 
   require(indent > 0)
   require(maxNestingBeforeLineBreak >= 0)

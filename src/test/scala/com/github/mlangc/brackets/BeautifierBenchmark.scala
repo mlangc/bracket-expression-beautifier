@@ -1,7 +1,7 @@
-package at.lnet.brackets
+package com.github.mlangc.brackets
 
-import org.scalameter.api._
 import org.scalameter.PerformanceTest.Quickbenchmark
+import org.scalameter.api.Gen
 
 object BeautifierBenchmark extends Quickbenchmark {
   private val strings = Gen.enumeration("input")(

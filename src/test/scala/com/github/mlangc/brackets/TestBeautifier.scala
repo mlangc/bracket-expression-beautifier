@@ -1,8 +1,8 @@
-package at.lnet.brackets
+package com.github.mlangc.brackets
 
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import at.lnet.UnitTest
+import com.github.mlangc.UnitTest
 
 object TestBeautifier {
   private val TypicalBeautifier = new Beautifier(Brackets("()"), 2, 1)
@@ -10,10 +10,9 @@ object TestBeautifier {
   private val ElaborateBeautifier = new Beautifier(Brackets("()"), 4, 0)
 }
 
-
 @RunWith(classOf[JUnitRunner])
 class TestBeautifier extends UnitTest {
-  import TestBeautifier._
+import TestBeautifier._
 
   "Test a typical beautifier with" - {
     "an empty string" in {

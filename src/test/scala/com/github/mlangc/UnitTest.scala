@@ -1,4 +1,4 @@
-package at.lnet
+package com.github.mlangc
 
 import org.scalatest.path.FreeSpec
 import org.scalatest.Matchers
