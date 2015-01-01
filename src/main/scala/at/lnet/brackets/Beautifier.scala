@@ -69,7 +69,7 @@ class Beautifier(brackets: Brackets = Brackets("()"), indent: Int = 2, maxNestin
   }
 
   override def toString = {
-    "${(classOf[Beautifier].getSimpleName}, $brackets, $indent, $maxNestingBeforeLineBreak)"
+    s"${classOf[Beautifier].getSimpleName}, $brackets, $indent, $maxNestingBeforeLineBreak)"
   }
 
   private def format(trees: IndexedSeq[StrTree]): String = {
