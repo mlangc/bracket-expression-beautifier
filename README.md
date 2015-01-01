@@ -10,7 +10,7 @@ Clone the repository, cd into it and run
 Now you can use the beautifier like this:
 
     scala> val beauty = at.lnet.brackets.DefaultBeautifier
-    beauty: at.lnet.brackets.DefaultBeautifier.type = Beautifier, Brackets((,)), 2, 3)
+    beauty: at.lnet.brackets.DefaultBeautifier.type = Beautifier(Brackets((,)), 2, 3)
     scala> beauty.format("(2 * (3 + f(a, g(h(k(l(x) + 1) + 1) + 1) + 1)*5))")
     res0: String =
     (

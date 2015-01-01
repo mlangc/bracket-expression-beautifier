@@ -48,7 +48,7 @@ object Beautifier {
 }
 
 /**
- * A configurable beautifier for implemented for, but not limited to, viewing Scala ASTs.
+ * A configurable beautifier implemented for, but not limited to, viewing Scala ASTs.
  *
  * @param brackets usually "(" and ")"
  * @param indent the amount of indent after line breaks
@@ -71,7 +71,7 @@ class Beautifier(brackets: Brackets = Brackets("()"), indent: Int = 2, maxNestin
   }
 
   override def toString = {
-    s"${classOf[Beautifier].getSimpleName}, $brackets, $indent, $maxNestingBeforeLineBreak)"
+    s"${classOf[Beautifier].getSimpleName}($brackets, $indent, $maxNestingBeforeLineBreak)"
   }
 
   private def format(trees: IndexedSeq[StrTree]): String = {
