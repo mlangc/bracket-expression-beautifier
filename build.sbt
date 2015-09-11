@@ -4,7 +4,7 @@ name := "bracket-expression-beautifier"
 
 version := "1.1-SNAPSHOT"
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.7"
 
 scalacOptions := Seq("-encoding", "utf8")
 
