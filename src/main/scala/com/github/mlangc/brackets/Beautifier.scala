@@ -74,40 +74,37 @@ import Beautifier._
     s"${classOf[Beautifier].getSimpleName}($brackets, $indent, $maxNestingBeforeLineBreak)"
   }
 
-  private def format(trees: IndexedSeq[StrTree]): String = {
-    def go(trees: IndexedSeq[StrTree], cindent: Int = 0): String = {
-      trees.foldLeft("") { (acc, tree) =>
-        val breakLine = tree.height > maxNestingBeforeLineBreak
-        val nindent = if (breakLine) cindent + indent else cindent
-        val (beforeCloseingBrace, closingBrace) = {
-          val subtrees = tree.subtrees
-          if (subtrees.isEmpty) {
-            (IndexedSeq(), None)
-          } else if (subtrees.size == 1) {
-            if (!isClosingBrace(subtrees(0))) (IndexedSeq(subtrees(0)), None)
-            else (IndexedSeq(), Some(subtrees(0)))
-          } else if (isClosingBrace(subtrees.last)) {
-            (subtrees.init, Some(subtrees.last))
-          } else {
-            (subtrees, None)
-          }
+  private def format(trees: IndexedSeq[StrTree], cindent: Int = 0): String = {
+    trees.foldLeft("") { (acc, tree) =>
+      val breakLine = tree.height > maxNestingBeforeLineBreak
+      val nindent = if (breakLine) cindent + indent else cindent
+      val (beforeCloseingBrace, closingBrace) = {
+        val subtrees = tree.subtrees
+        if (subtrees.isEmpty) {
+          (IndexedSeq(), None)
+        } else if (subtrees.size == 1) {
+          if (!isClosingBrace(subtrees(0))) (IndexedSeq(subtrees(0)), None)
+          else (IndexedSeq(), Some(subtrees(0)))
+        } else if (isClosingBrace(subtrees.last)) {
+          (subtrees.init, Some(subtrees.last))
+        } else {
+          (subtrees, None)
         }
-
-        val closeExpr = closingBrace.map { brace =>
-          (if (breakLine) "\n" + (" " * cindent) else "") + brace.str
-        }.getOrElse("")
-
-        val subtreeStr = {
-          if (beforeCloseingBrace.isEmpty) None
-          else Some(go(beforeCloseingBrace, nindent))
-        }.map { str =>
-          (if (breakLine) "\n" + (" " * nindent) else "") + str
-        }.getOrElse("")
-
-        acc + tree.str + subtreeStr + closeExpr
       }
+
+      val closeExpr = closingBrace.map { brace =>
+        (if (breakLine) "\n" + (" " * cindent) else "") + brace.str
+      }.getOrElse("")
+
+      val subtreeStr = {
+        if (beforeCloseingBrace.isEmpty) None
+        else Some(format(beforeCloseingBrace, nindent))
+      }.map { str =>
+        (if (breakLine) "\n" + (" " * nindent) else "") + str
+      }.getOrElse("")
+
+      acc + tree.str + subtreeStr + closeExpr
     }
-    go(trees)
   }
 
   private def isClosingBrace(tree: StrTree): Boolean = {
