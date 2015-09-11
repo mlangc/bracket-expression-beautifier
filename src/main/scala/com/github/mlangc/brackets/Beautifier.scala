@@ -150,7 +150,7 @@ import Beautifier._
       }
 
       partitions.foldLeft(IndexedSeq[StrTree]()) { (acc, part) =>
-        val (str, parts, level) = part
+        val (str, parts, _) = part
         acc :+ StrTree(str, toStringTrees(parts))
       }
     }
