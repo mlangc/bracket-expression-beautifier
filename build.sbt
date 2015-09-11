@@ -6,7 +6,7 @@ version := "1.1-SNAPSHOT"
 
 scalaVersion := "2.11.7"
 
-scalacOptions := Seq("-encoding", "utf8")
+scalacOptions := Seq("-encoding", "utf8", "-feature", "-deprecation", "-optimise", "-Ywarn-unused", "-Ywarn-dead-code", "-Ywarn-unused-import")
 
 EclipseKeys.withSource := true
 
