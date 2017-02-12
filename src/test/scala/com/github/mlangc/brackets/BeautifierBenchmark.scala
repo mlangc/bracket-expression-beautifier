@@ -1,9 +1,9 @@
 package com.github.mlangc.brackets
 
-import org.scalameter.PerformanceTest.Quickbenchmark
-import org.scalameter.api.Gen
+import org.scalameter.api._
+import org.scalameter.picklers.noPickler._
 
-object BeautifierBenchmark extends Quickbenchmark {
+object BeautifierBenchmark extends Bench.LocalTime {
   private val strings = Gen.enumeration("input")(
     """Expr(Apply(Select(Apply(Apply(Select(Apply(Select(Ident(scala.collection.immutable.List), TermName("apply")), List(Select(Ident(scala.collection.immutable.Nil), TermName("size")), Select(Apply(Select(Ident(scala.collection.Seq), TermName("apply")), List()), TermName("size")), Select(Apply(Select(Select(Ident(scala.Predef), TermName("Map")), TermName("apply")), List()), TermName("size")))), TermName("map")), List(Function(List(ValDef(Modifiers(PARAM | SYNTHETIC), TermName("x$1"), TypeTree(), EmptyTree)), Apply(Select(Ident(TermName("x$1")), TermName("$times")), List(Literal(Constant(2))))))), List(Select(Ident(scala.collection.immutable.List), TermName("canBuildFrom")))), TermName("sum")), List(Select(Ident(scala.math.Numeric), TermName("IntIsIntegral")))))""",
     """Expr(Apply(Select(Apply(Select(Apply(Select(Ident(scala.Some), TermName("apply")), List(Literal(Constant("")))), TermName("getOrElse")), List(Literal(Constant("a")))), TermName("$plus")), List(Literal(Constant("b")))))""",

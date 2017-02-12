@@ -1,22 +1,20 @@
 organization := "com.github.mlangc"
-
 name := "bracket-expression-beautifier"
+version := "1.1.0-SNAPSHOT"
 
-version := "1.1-SNAPSHOT"
-
-scalaVersion := "2.11.7"
-
+scalaVersion := "2.11.8"
+crossScalaVersions := Seq("2.11.8", "2.12.1")
 scalacOptions := Seq("-encoding", "utf8", "-feature", "-deprecation", "-optimise", "-Ywarn-unused", "-Ywarn-dead-code", "-Ywarn-unused-import")
 
 EclipseKeys.withSource := true
-
 EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Resource
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1" % "test"
-
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 libraryDependencies += "junit" % "junit" % "4.12" % "test"
+libraryDependencies += "com.storm-enroute" %% "scalameter" % "0.8.2" % "test"
 
-libraryDependencies += "com.storm-enroute" %% "scalameter" % "0.6" % "test"
+libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.1" % "test" cross CrossVersion.full
+initialCommands in (Test, console) := """ammonite.Main().run()"""
 
 //testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
 
@@ -29,7 +27,6 @@ publishTo := {
 }
 
 publishMavenStyle := true
-
 publishArtifact in Test := false
 
 pomExtra := (
