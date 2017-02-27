@@ -1,16 +1,17 @@
 package com.github.mlangc.demo
 
-import com.github.mlangc.brackets.DefaultBeautifier
+import com.github.mlangc.brackets.{DefaultBeautifier => beautifier}
 import scala.tools.reflect.ToolBox
 import scala.reflect.runtime.universe._
 
 object Asts {
-  private def beautifier = DefaultBeautifier
-  private val toolbox = runtimeMirror(getClass.getClassLoader).mkToolBox()
+  private def classLoader = getClass.getClassLoader
+  private val toolbox = runtimeMirror(classLoader).mkToolBox()
 
   def format(scalaSnippet: String): String = {
     beautifier.format {
-      showRaw(toolbox.parse(scalaSnippet))
+      val tree = toolbox.typecheck(toolbox.parse(scalaSnippet))
+      showRaw(tree)
     }
   }
 }
