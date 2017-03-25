@@ -4,10 +4,13 @@ version := "1.1.0-SNAPSHOT"
 
 scalaVersion := "2.11.8"
 crossScalaVersions := Seq("2.11.8", "2.12.1")
-scalacOptions := Seq("-encoding", "utf8", "-feature", "-deprecation", "-optimise", "-Ywarn-unused", "-Ywarn-dead-code", "-Ywarn-unused-import")
 
-EclipseKeys.withSource := true
-EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Resource
+scalacOptions := Seq("-encoding", "utf8", "-feature", "-deprecation", "-Ywarn-unused", "-Ywarn-dead-code", "-Ywarn-unused-import")
+
+scalacOptions ++= {
+  if (scalaVersion.value.startsWith("2.12.")) Seq("-opt:l:project")
+  else Nil
+}
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 libraryDependencies += "junit" % "junit" % "4.12" % "test"
@@ -17,8 +20,6 @@ libraryDependencies += "org.scalameta" %% "scalameta" % "1.6.0"
 
 libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.2" % "test" cross CrossVersion.full
 initialCommands in (Test, console) := """ammonite.Main().run()"""
-
-//testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
 
 publishTo := {
   val nexus = "https://oss.sonatype.org/"
