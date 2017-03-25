@@ -6,3 +6,5 @@ target
 *.swp
 .scalastyle
 /bin/
+.idea
+*.iml
