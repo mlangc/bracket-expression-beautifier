@@ -4,7 +4,7 @@ import com.github.mlangc.brackets.{DefaultBeautifier => beautifier}
 import scala.tools.reflect.ToolBox
 import scala.reflect.runtime.universe._
 
-object Asts {
+object PcAsts {
   private def classLoader = getClass.getClassLoader
   private val toolbox = runtimeMirror(classLoader).mkToolBox()
 

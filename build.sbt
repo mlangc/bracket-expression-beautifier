@@ -13,8 +13,9 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 libraryDependencies += "junit" % "junit" % "4.12" % "test"
 libraryDependencies += "com.storm-enroute" %% "scalameter" % "0.8.2" % "test"
 libraryDependencies += "org.scala-lang"  % "scala-compiler"    % scalaVersion.value % "test"
+libraryDependencies += "org.scalameta" %% "scalameta" % "1.6.0"
 
-libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.1" % "test" cross CrossVersion.full
+libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.2" % "test" cross CrossVersion.full
 initialCommands in (Test, console) := """ammonite.Main().run()"""
 
 //testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
@@ -29,6 +30,8 @@ publishTo := {
 
 publishMavenStyle := true
 publishArtifact in Test := false
+
+excludeDependencies += "org.mongodb"
 
 pomExtra := (
   <url>https://github.com/mlangc/bracket-expression-beautifier</url>

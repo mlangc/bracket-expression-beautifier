@@ -1,6 +1,5 @@
 package com.github.mlangc.brackets
 
-import scala.IndexedSeq
 import scala.util.matching.Regex
 
 case class Brackets(open: String, close: String) {
@@ -52,7 +51,7 @@ object Beautifier {
  *
  * @param brackets usually "(" and ")"
  * @param indent the amount of indent after line breaks
- * @param maxHeightBeforeLineBreak defines how many nested "()" expressions are allowed, before a line break is inserted.
+ * @param maxNestingBeforeLineBreak defines how many nested "()" expressions are allowed, before a line break is inserted.
  */
 class Beautifier(brackets: Brackets = Brackets("()"), indent: Int = 2, maxNestingBeforeLineBreak: Int = 3) {
 import Beautifier._
