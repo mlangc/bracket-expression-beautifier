@@ -1,7 +1,5 @@
 package com.github.mlangc.brackets
 
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import com.github.mlangc.UnitTest
 
 object TestBeautifier {
@@ -10,7 +8,6 @@ object TestBeautifier {
   private val ElaborateBeautifier = new Beautifier(Brackets("()"), 4, 0)
 }
 
-@RunWith(classOf[JUnitRunner])
 class TestBeautifier extends UnitTest {
 import TestBeautifier._
 

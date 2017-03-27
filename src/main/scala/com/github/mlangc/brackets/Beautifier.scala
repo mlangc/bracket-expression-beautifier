@@ -2,20 +2,6 @@ package com.github.mlangc.brackets
 
 import scala.util.matching.Regex
 
-case class Brackets(open: String, close: String) {
-  require(open != close, "Opening and closing brackets must differ")
-}
-
-object Brackets {
-  def apply(str: String): Brackets = str.toCharArray() match {
-    case Array(open, close) => Brackets(open.toString, close.toString)
-  }
-}
-
-object DefaultBeautifier extends Beautifier {
-
-}
-
 object Beautifier {
   /*
    * These trees are meant to be built like this:
