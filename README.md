@@ -3,15 +3,8 @@
 
 ## Usage
 
-Clone the repository, cd into it and run
-
-	$ sbt console
-
-Now you can use the beautifier like this:
-
-    scala> val beauty = com.github.mlangc.brackets.DefaultBeautifier
-    beauty: com.github.mlangc.brackets.DefaultBeautifier.type = Beautifier(Brackets((,)), 2, 3)
-    scala> beauty.format("(2 * (3 + f(a, g(h(k(l(x) + 1) + 1) + 1) + 1)*5))")
+    scala> import com.github.mlangc.brackets.api._
+    scala> beautify("(2 * (3 + f(a, g(h(k(l(x) + 1) + 1) + 1) + 1)*5))")
     res0: String =
     (
       2 * (
@@ -22,8 +15,8 @@ Now you can use the beautifier like this:
         )*5
       )
     )
-    import scala.reflect.runtime.universe._
-    scala> beauty.format(showRaw(reify { 3 + Seq(Seq(1, 2), Seq()).flatten.sum }))
+    scala> import scala.reflect.runtime.universe._
+    scala> beautify(showRaw(reify { 3 + Seq(Seq(1, 2), Seq()).flatten.sum }))
     res4: String =
     Expr(
       Apply(
@@ -47,11 +40,9 @@ Now you can use the beautifier like this:
       )
     )
 
-Alternatively you can add the beautifier as a dependency to your project. If you are using sbt, just add the following line to your build.sbt:
+If you want to add the beautifier as a dependency to your project, you can do so by add the following line to your build.sbt:
 
-	libraryDependencies += "com.github.mlangc" %% "bracket-expression-beautifier" % "1.0"
+	libraryDependencies += "com.github.mlangc" %% "bracket-expression-beautifier" % "2.0.0"
 
-	
-## Caveats
+The library is available for Scala-2.11 and Scala-2.12.
 
-If your input string already contains newlines, you should strip them away before calling the beautifier.

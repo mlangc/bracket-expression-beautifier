@@ -1,6 +1,6 @@
 organization := "com.github.mlangc"
 name := "bracket-expression-beautifier"
-version := "1.1.0-SNAPSHOT"
+version := "2.0.0-SNAPSHOT"
 
 scalaVersion := "2.11.8"
 crossScalaVersions := Seq("2.11.8", "2.12.1")
@@ -21,7 +21,7 @@ libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.2" % "test" cross Cross
 
 val ammInitialCommands =
   "import com.github.mlangc.demo._; " +
-  "import com.github.mlangc.brackets.DefaultBeautifier.format;"
+  "import com.github.mlangc.brackets.api._;"
 
 initialCommands in(Test, console) := s"""ammonite.Main("$ammInitialCommands").run()"""
 

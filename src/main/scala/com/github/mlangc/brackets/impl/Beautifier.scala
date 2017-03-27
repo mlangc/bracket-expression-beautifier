@@ -1,4 +1,4 @@
-package com.github.mlangc.brackets
+package com.github.mlangc.brackets.impl
 
 import scala.util.matching.Regex
 

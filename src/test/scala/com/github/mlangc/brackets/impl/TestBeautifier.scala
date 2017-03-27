@@ -1,4 +1,4 @@
-package com.github.mlangc.brackets
+package com.github.mlangc.brackets.impl
 
 import com.github.mlangc.UnitTest
 
@@ -141,6 +141,6 @@ import TestBeautifier._
   }
 
   private def testWith(beauty: Beautifier, input: String, expected: String) = {
-    beauty.format(input) should be (expected)
+    assert(beauty.format(input) == (expected))
   }
 }
