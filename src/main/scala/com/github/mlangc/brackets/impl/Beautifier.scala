@@ -63,7 +63,7 @@ import Beautifier._
     trees.foldLeft("") { (acc, tree) =>
       val breakLine = tree.height > maxNestingBeforeLineBreak
       val nindent = if (breakLine) cindent + indent else cindent
-      val (beforeCloseingBrace, closingBrace) = {
+      val (beforeClosingBrace, closingBrace) = {
         val subtrees = tree.subtrees
         if (subtrees.isEmpty) {
           (IndexedSeq(), None)
@@ -82,8 +82,8 @@ import Beautifier._
       }.getOrElse("")
 
       val subtreeStr = {
-        if (beforeCloseingBrace.isEmpty) None
-        else Some(format(beforeCloseingBrace, nindent))
+        if (beforeClosingBrace.isEmpty) None
+        else Some(format(beforeClosingBrace, nindent))
       }.map { str =>
         (if (breakLine) "\n" + (" " * nindent) else "") + str
       }.getOrElse("")
