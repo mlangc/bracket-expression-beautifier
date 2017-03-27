@@ -15,7 +15,7 @@ scalacOptions ++= {
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 libraryDependencies += "com.storm-enroute" %% "scalameter" % "0.8.2" % "test"
 libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value % "test"
-libraryDependencies += "org.scalameta" %% "scalameta" % "1.6.0"
+libraryDependencies += "org.scalameta" %% "scalameta" % "1.6.0" % "test"
 
 libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.2" % "test" cross CrossVersion.full
 
