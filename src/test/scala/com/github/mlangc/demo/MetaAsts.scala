@@ -11,4 +11,8 @@ object MetaAsts {
       scalaSnippet.parse[U].get.structure.toString
     }
   }
+
+  def format(tree: Tree): String = beautify {
+    tree.structure
+  }
 }

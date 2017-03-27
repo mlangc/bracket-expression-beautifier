@@ -21,7 +21,8 @@ libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.2" % "test" cross Cross
 
 val ammInitialCommands =
   "import com.github.mlangc.demo._; " +
-  "import com.github.mlangc.brackets.api._;"
+  "import com.github.mlangc.brackets.api._;" +
+  "import scala.meta._"
 
 initialCommands in(Test, console) := s"""ammonite.Main("$ammInitialCommands").run()"""
 
