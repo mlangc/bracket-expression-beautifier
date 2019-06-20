@@ -1,6 +1,8 @@
 # Bracket Expression Beautifier
 *A simple beautifier for bracket expressions, implemented for, but not limited to, Scala ASTs.*
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mlangc/bracket-expression-beautifier_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mlangc/bracket-expression-beautifier_2.11)
+
 ## Usage
 
 ### General

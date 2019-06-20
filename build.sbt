@@ -1,30 +1,28 @@
 organization := "com.github.mlangc"
 name := "bracket-expression-beautifier"
-version := "2.0.0"
+version := "2.0.1"
 
-scalaVersion := "2.11.8"
-crossScalaVersions := Seq("2.11.8", "2.12.1")
+scalaVersion := "2.12.8"
+crossScalaVersions := Seq("2.11.8", "2.12.8")
 
 scalacOptions := Seq("-encoding", "utf8", "-feature", "-deprecation", "-Ywarn-unused", "-Ywarn-dead-code", "-Ywarn-unused-import")
-
-scalacOptions ++= {
-  if (scalaVersion.value.startsWith("2.12.")) Seq("-opt:l:project")
-  else Nil
-}
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 libraryDependencies += "com.storm-enroute" %% "scalameter" % "0.8.2" % "test"
 libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value % "test"
 libraryDependencies += "org.scalameta" %% "scalameta" % "1.6.0" % "test"
 
-libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.2" % "test" cross CrossVersion.full
+val testConsoleImports =
+  Seq(
+    "import com.github.mlangc.demo._",
+    "import com.github.mlangc.brackets.api._",
+    "import scala.meta._"
+  ).mkString("\n", "\n", "\n")
 
-val ammInitialCommands =
-  "import com.github.mlangc.demo._; " +
-  "import com.github.mlangc.brackets.api._;" +
-  "import scala.meta._"
 
-initialCommands in(Test, console) := s"""ammonite.Main("$ammInitialCommands").run()"""
+initialCommands in(Test, console) := testConsoleImports
+scalacOptions in(Compile, console) ~= (_.filterNot(opt => opt.startsWith("-Ywarn-") || opt.startsWith("-opt")))
+scalacOptions in(Test, console) := (scalacOptions in (Compile, console)).value
 
 publishTo := {
   val nexus = "https://oss.sonatype.org/"
